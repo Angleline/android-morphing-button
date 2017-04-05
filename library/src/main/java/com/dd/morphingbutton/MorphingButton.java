@@ -9,14 +9,15 @@ import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 import android.util.StateSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
-public class MorphingButton extends Button {
+public class MorphingButton extends AppCompatButton {
 
     private Padding mPadding;
     private int mHeight;
@@ -111,7 +112,7 @@ public class MorphingButton extends Button {
         mDrawableNormal.setStrokeColor(params.strokeColor);
         mDrawableNormal.setStrokeWidth(params.strokeWidth);
 
-        if(params.width != 0 && params.height !=0) {
+        if (params.width != 0 && params.height != 0) {
             ViewGroup.LayoutParams layoutParams = getLayoutParams();
             layoutParams.width = params.width;
             layoutParams.height = params.height;
@@ -129,7 +130,7 @@ public class MorphingButton extends Button {
             setText(params.text);
         } else if (params.icon != 0) {
             setIcon(params.icon);
-        } else if(params.text != null) {
+        } else if (params.text != null) {
             setText(params.text);
         }
 
@@ -165,8 +166,8 @@ public class MorphingButton extends Button {
 
         Resources resources = getResources();
         int cornerRadius = (int) resources.getDimension(R.dimen.mb_corner_radius_2);
-        int blue = resources.getColor(R.color.mb_blue);
-        int blueDark = resources.getColor(R.color.mb_blue_dark);
+        int blue = ResourcesCompat.getColor(resources,R.color.mb_blue,getContext().getTheme());
+        int blueDark =ResourcesCompat.getColor(resources,R.color.mb_blue_dark,getContext().getTheme());
 
         StateListDrawable background = new StateListDrawable();
         mDrawableNormal = createDrawable(blue, cornerRadius, 0);
@@ -207,7 +208,7 @@ public class MorphingButton extends Button {
         post(new Runnable() {
             @Override
             public void run() {
-                Drawable drawable = getResources().getDrawable(icon);
+                Drawable drawable =ResourcesCompat.getDrawable(getResources(),icon,getContext().getTheme());
                 int padding = (getWidth() / 2) - (drawable.getIntrinsicWidth() / 2);
                 setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0);
                 setPadding(padding, 0, 0, 0);

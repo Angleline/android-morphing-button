@@ -8,11 +8,13 @@ import android.graphics.Path;
 import android.graphics.RectF;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AnimationUtils;
+
 import com.dd.morphingbutton.MorphingAnimation;
 import com.dd.morphingbutton.MorphingButton;
 import com.dd.morphingbutton.R;
@@ -45,14 +47,14 @@ public class IndeterminateProgressButton extends MorphingButton {
 
     private void init(Context context) {
         Resources res = context.getResources();
-        mColor1 = res.getColor(R.color.mb_gray);
-        mColor2 = res.getColor(R.color.mb_blue);
-        mColor3 = res.getColor(R.color.mb_gray);
-        mColor4 = res.getColor(R.color.mb_blue);
+        mColor1 = ResourcesCompat.getColor(res, R.color.mb_gray, context.getTheme());
+        mColor2 = ResourcesCompat.getColor(res, R.color.mb_blue, context.getTheme());
+        mColor3 = ResourcesCompat.getColor(res, R.color.mb_gray, context.getTheme());
+        mColor4 = ResourcesCompat.getColor(res, R.color.mb_blue, context.getTheme());
 
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             // clipPath only available on hardware for 18+
-            setLayerType(LAYER_TYPE_SOFTWARE, null);
+            ViewCompat.setLayerType(this, ViewCompat.LAYER_TYPE_SOFTWARE, null);
         }
     }
 
@@ -307,10 +309,10 @@ public class IndeterminateProgressButton extends MorphingButton {
          * Draws a circle centered in the view.
          *
          * @param canvas the canvas to draw on
-         * @param cx the center x coordinate
-         * @param cy the center y coordinate
-         * @param color the color to draw
-         * @param pct the percentage of the view that the circle should cover
+         * @param cx     the center x coordinate
+         * @param cy     the center y coordinate
+         * @param color  the color to draw
+         * @param pct    the percentage of the view that the circle should cover
          */
         private void drawCircle(Canvas canvas, float cx, float cy, int color, float pct) {
             mPaint.setColor(color);
